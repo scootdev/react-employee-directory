@@ -59,7 +59,6 @@ class Container extends Component {
         let list = this.state.results;
         this.setState({ results: [] });
         list.sort(this.sortBy(key, order));
-        console.log(list)
         this.setState({ results: list, sortBy: key, sortOrder: order });
     }
 

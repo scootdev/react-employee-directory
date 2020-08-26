@@ -1,34 +1,39 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const Table = props => {
-    return (
-        <div>
-            <table class="table" id="employee-table">
-                <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Dept.</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Username</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {props.employees.map(employee => (
+class Table extends Component {
+
+    state = {
+        headers: Object.keys(this.props.employees[1])
+    }
+
+    capFirst = str => {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    render() {
+        return (
+            <div>
+                <table class="table" id="employee-table">
+                    <thead>
                         <tr>
-                            <th scope="row">{employee.id}</th>
-                            <td>{employee.first_name}</td>
-                            <td>{employee.last_name}</td>
-                            <td>{employee.department}</td>
-                            <td>{employee.email}</td>
-                            <td>{employee.username}</td>
+                        {this.state.headers.map(header => (
+                            <th scope="col">{this.capFirst(header)}</th>
+                        ))}
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    )
+                    </thead>
+                    <tbody>
+                        {this.props.employees.map(employee => (
+                            <tr>
+                            {this.state.headers.map(header => (
+                                <td>{employee[header]}</td>
+                            ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        )
+    } 
 }
 
 export default Table
